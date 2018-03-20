@@ -24,3 +24,11 @@ i.icon {
 .app {
     height: 100%;
 }
+
+body {
+    height: auto;
+}
+
+.ui.animated.button {
+    min-width: 160px;
+}
