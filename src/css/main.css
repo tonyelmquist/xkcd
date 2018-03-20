@@ -1,0 +1,26 @@
+h1 {
+    color: green;
+    margin-top: 0
+}
+
+i.icon.toggle-sidebar {
+    margin: 10px 20px 0 10px;
+}
+
+i.icon {
+    cursor: pointer
+}
+
+.no-data-message{
+    width: 400px;
+    height: 260px;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+}
+
+.app {
+    height: 100%;
+}
