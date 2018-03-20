@@ -142,6 +142,7 @@ class App extends React.Component {
                   lastCartoon={this.state.lastCartoon}
                   toggleVisibility={this.toggleVisibility}
                   isLoadingMore={this.state.isLoadingMore}
+                  isMoreData={this.state.isMoreData}
                 />
               ) : (
                 <ViewFavorites

@@ -86,6 +86,7 @@ ViewCartoons.propTypes = {
     lastCartoon: propTypes.number.isRequired,
     setFavorite: propTypes.func.isRequired,
     toggleVisibility: propTypes.func.isRequired,
+    isMoreData: propTypes.bool.isRequired,
 };
 
 export default ViewCartoons;
