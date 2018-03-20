@@ -22,7 +22,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastCartoon: null,
+      lastCartoon: 0,
       cartoons: [],
       showFavorites: false,
       isLoading: true,
@@ -112,8 +112,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div class="app">
-        <Sidebar.Pushable as={Segment}>
+      <div className="app">
+        <Sidebar.Pushable>
           <Sidebar
             as={Menu}
             animation="push"
@@ -122,7 +122,6 @@ class App extends React.Component {
             icon="labeled"
             vertical
             inverted
-            fixed
           >
             <Menu.Item name="data" className={this.state.showFavorites ? 'inactive' : 'active'}>
               <Icon name="user" onClick={this.setData} />

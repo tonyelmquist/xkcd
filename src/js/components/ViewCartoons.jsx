@@ -2,16 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {
   Button,
-  Segment,
-  Container,
-  Header,
   Icon,
-  Checkbox,
   Image,
   Grid,
-  Sidebar,
-  Menu
+  Checkbox
 } from "semantic-ui-react";
+import propTypes from 'prop-types';
 
 class ViewCartoons extends React.Component {
   constructor(props) {
@@ -42,7 +38,7 @@ class ViewCartoons extends React.Component {
   render() {
     return (
       <Grid>
-        <Grid.Row key="header" fluid>
+        <Grid.Row key="header">
           <Icon
             name="content"
             onClick={this.props.toggleVisibility}
@@ -82,5 +78,14 @@ class ViewCartoons extends React.Component {
     );
   }
 }
+
+ViewCartoons.propTypes = {
+    cartoons: propTypes.array.isRequired,
+    getMoreCartoons: propTypes.func.isRequired,
+    isLoadingMore: propTypes.bool.isRequired,
+    lastCartoon: propTypes.number.isRequired,
+    setFavorite: propTypes.func.isRequired,
+    toggleVisibility: propTypes.func.isRequired,
+};
 
 export default ViewCartoons;

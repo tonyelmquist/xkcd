@@ -2,16 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {
   Button,
-  Segment,
-  Container,
-  Header,
   Icon,
-  Checkbox,
   Image,
   Grid,
-  Sidebar,
-  Menu
 } from "semantic-ui-react";
+import propTypes from 'prop-types';
 
 import NoDataMessage from "./NoData";
 
@@ -41,7 +36,7 @@ class ViewFavorites extends React.Component {
   render() {
     return (
       <Grid>
-        <Grid.Row key="header" fluid>
+        <Grid.Row key="header">
           <Icon
             name="content"
             onClick={this.props.toggleVisibility}
@@ -59,5 +54,10 @@ class ViewFavorites extends React.Component {
     );
   }
 }
+
+ViewFavorites.propTypes = {
+    cartoons: propTypes.array.isRequired,
+    toggleVisibility: propTypes.func.isRequired,
+};
 
 export default ViewFavorites;
