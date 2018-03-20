@@ -37,7 +37,7 @@ class ViewCartoons extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <Grid divided='vertically'>
         <Grid.Row key="header">
           <Icon
             name="content"
