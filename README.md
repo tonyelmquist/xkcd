@@ -6,8 +6,6 @@ To run the app, first run
 
 npm install
 
-then start the node proxy server by running
-
 and then start the app by running
 
 npm run dev
