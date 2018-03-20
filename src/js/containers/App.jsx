@@ -15,6 +15,8 @@ import {
 import axios from "axios";
 
 import NoDataMessage from "../components/NoData";
+import ViewCartoons from "../components/ViewCartoons";
+import ViewFavorites from "../components/ViewFavorites";
 
 class App extends React.Component {
   constructor(props) {
@@ -108,45 +110,6 @@ class App extends React.Component {
     this.setState({ cartoons: cartoons });
   };
 
-  renderComics = () => {
-    let cartoonRows = this.state.cartoons.map((cartoon, i) => (
-      <Grid.Row key={i}>
-        <Grid.Column width={2}>
-          <Checkbox
-            toggle
-            className="verbose-toggle"
-            checked={cartoon.isFavorite}
-            onClick={() => this.setFavorite(i)}
-          />
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Image src={cartoon.img} size="small" rounded />
-        </Grid.Column>
-        <Grid.Column width={2}>{cartoon.date}</Grid.Column>
-        <Grid.Column width={4}>{cartoon.title}</Grid.Column>
-      </Grid.Row>
-    ));
-    return cartoonRows;
-  };
-
-  renderFavorites = () => {
-    let cartoonRows = this.state.cartoons.filter(cartoon => cartoon.isFavorite);
-    if (cartoonRows.length <= 0) {
-      return <NoDataMessage />; // render no data message if no favorites selected
-    } else {
-      cartoonRows = cartoonRows.map((cartoon, i) => (
-        <Grid.Row key={i}>
-          <Grid.Column width={2}>{cartoon.date}</Grid.Column>
-          <Grid.Column width={6}>
-            <Image src={cartoon.img} size="large" rounded />
-          </Grid.Column>
-          <Grid.Column width={4}>{cartoon.title}</Grid.Column>
-        </Grid.Row>
-      ));
-      return cartoonRows;
-    }
-  };
-
   render() {
     return (
       <div class="app">
@@ -159,12 +122,13 @@ class App extends React.Component {
             icon="labeled"
             vertical
             inverted
+            fixed
           >
-            <Menu.Item name="data">
+            <Menu.Item name="data" className={this.state.showFavorites ? 'inactive' : 'active'}>
               <Icon name="user" onClick={this.setData} />
               Choose Cartoons
             </Menu.Item>
-            <Menu.Item name="favorites">
+            <Menu.Item name="favorites" className={this.state.showFavorites ? 'active' : 'inactive'}>
               <Icon name="thumbs outline up" onClick={this.setFavorites} />
               View Favorites
             </Menu.Item>
@@ -172,56 +136,19 @@ class App extends React.Component {
           <Sidebar.Pusher>
             <Segment basic>
               {!this.state.showFavorites ? (
-                <Grid>
-                  <Grid.Row key="header" fluid>
-                    <Icon
-                      name="content"
-                      onClick={this.toggleVisibility}
-                      className="toggle-sidebar"
-                    />
-                    <h1>Choose your favorite XKCD comics!</h1>
-                  </Grid.Row>
-                  <Grid.Row key="headers">
-                    <Grid.Column width={2}>Set As Favorite</Grid.Column>
-                    <Grid.Column width={4} />
-                    <Grid.Column width={2}>Date</Grid.Column>
-                    <Grid.Column width={4}>Description</Grid.Column>
-                  </Grid.Row>
-                  {this.renderComics()}
-
-                  {this.state.isMoreData ? (
-                    <Grid.Row key="footer">
-                      <Grid.Column width={1}>
-                        <Button
-                          animated
-                          loading={this.state.isLoadingMore}
-                          onClick={() =>
-                            this.getMoreCartoons(this.state.lastCartoon) // kick off new request starting with last cartoon fetched
-                          }
-                        >
-                          <Button.Content visible>View more</Button.Content>
-                          <Button.Content hidden>
-                            <Icon name="chevron down" />
-                          </Button.Content>
-                        </Button>
-                      </Grid.Column>
-                    </Grid.Row>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
+                <ViewCartoons
+                  cartoons={this.state.cartoons}
+                  setFavorite={this.setFavorite}
+                  getMoreCartoons={this.getMoreCartoons}
+                  lastCartoon={this.state.lastCartoon}
+                  toggleVisibility={this.toggleVisibility}
+                  isLoadingMore={this.state.isLoadingMore}
+                />
               ) : (
-                <Grid>
-                  <Grid.Row key="header" fluid>
-                    <Icon
-                      name="content"
-                      onClick={this.toggleVisibility}
-                      className="toggle-sidebar"
-                    />
-                    <h1>Here are your favorite XKCD comics!</h1>
-                  </Grid.Row>
-                  {this.renderFavorites()}
-                </Grid>
+                <ViewFavorites
+                  cartoons={this.state.cartoons}
+                  toggleVisibility={this.toggleVisibility}
+                />
               )}
             </Segment>
           </Sidebar.Pusher>
